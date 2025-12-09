@@ -46,8 +46,9 @@ void TaskManager::completeTask(int index) {
 }
 
 void TaskManager::showTask() const {
+    int count = 0;
     if (tasks.empty()) {
-        std::cout << "No Tasks";
+        cout << "No Tasks";
         return;
     }
     for (int i = 0; i < tasks.size(); i++) {
@@ -55,7 +56,11 @@ void TaskManager::showTask() const {
         << tasks[i].category << "|"
         << tasks[i].data << "|"
         << (tasks[i].completed ? "[COMPLETED]" : "[NOT COMPLETED]") << endl;
+        if (tasks[i].completed == 0) {
+            count++;
+        }
     }
+    cout << "Numero di tasks ancora da completare: " << count << endl;
 }
 
 void TaskManager::filterByCategory(const string& category) const {
@@ -81,15 +86,15 @@ void TaskManager::saveToFile(const string& fileName) const{
         file << t.description << "|"
              << t.category << "|"
              << t.data << "|"
-             << (t.completed ? "1" : "0") << endl;
+             << (t.completed ? "COMPLETED" : "NOT COMPLETED") << endl;
     }
 }
 
 void TaskManager::loadFromFile(const string& fileName) {
     tasks.clear();
-
     ifstream file(fileName);
     string line;
+
 
     while(getline(file, line)) {
         if (!line.empty()) {

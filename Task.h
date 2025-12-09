@@ -14,7 +14,7 @@ public:
     string data;
     bool completed;
 
-    Task(string des, string cat, string d, bool c = false) : description(des), category(cat), data(d), completed(c) {}
+    Task(string des, string cat, string d, bool c) : description(des), category(cat), data(d), completed(c) {}
 };
 
 
