@@ -7,4 +7,8 @@ add_executable(LabProgrammazione main.cpp
         Task.h
         Task.h
         TaskManager.cpp
-        TaskManager.h)
+        TaskManager.h
+        tests/TaskManagerTest.cpp)
+add_subdirectory(tests)
+
+

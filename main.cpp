@@ -1,7 +1,7 @@
 using namespace std;
 #include <iostream>
-#include "Task.h"
-#include "TaskManager.h"
+#include "src/Task.h"
+#include "src/TaskManager.h"
 
 
 int main() {
