@@ -7,5 +7,5 @@ TEST(TaskTest, ConstructorInitializesValues) {
     EXPECT_EQ(t.description, "Studiare c++");
     EXPECT_EQ(t.category, "Studio");
     EXPECT_EQ(t.data, "11/12/2025");
-    EXPECTED_FALSE(t.completed);
+    EXPECT_FALSE(t.completed);
 }

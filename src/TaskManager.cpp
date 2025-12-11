@@ -8,6 +8,13 @@
 #include <ostream>
 #include <sstream>
 
+int TaskManager::getCount() {
+    return count;
+}
+vector<Task> TaskManager::getTasks() {
+    return tasks;
+}
+
 // Funzione interna: prende una riga del file e la trasforma in una task
 Task TaskManager::parseTask(const string& line) {
     stringstream ss(line);                                  // Crea un oggetto stringstream che permette di leggere la stringa come se fosse un file.
@@ -45,8 +52,7 @@ void TaskManager::completeTask(int index) {
     cout << "Task completed!" << endl;
 }
 
-void TaskManager::showTask() const {
-    int count = 0;
+void TaskManager::showTask(){
     if (tasks.empty()) {
         cout << "No Tasks";
         return;
@@ -60,7 +66,7 @@ void TaskManager::showTask() const {
             count++;
         }
     }
-    cout << "Numero di tasks ancora da completare: " << count << endl;
+    cout << "Numero di tasks ancora da completare: " << getCount() << endl;
 }
 
 void TaskManager::filterByCategory(const string& category) const {

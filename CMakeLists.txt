@@ -1,29 +1,24 @@
 cmake_minimum_required(VERSION 4.0)
-project(TaskProject LANGUAGES CXX)
+project(LabProgrammazione)
 
-# Imposta standard C++
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Aggiunge la cartella src (crea task_lib)
-add_subdirectory(src)
-
-# ------------------------
-# ESEGUIBILE PRINCIPALE
-# ------------------------
-add_executable(TaskApp main.cpp)
-
-# Linka la libreria principale
-target_link_libraries(TaskApp
-        PRIVATE
-        task_lib
+# --- 1. SCARICA GOOGLE TEST (Mettilo qui!) ---
+include(FetchContent)
+FetchContent_Declare(
+        googletest
+        URL https://github.com/google/googletest/archive/refs/heads/main.zip
 )
+# Fix per Windows
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
-# ------------------------
-# TESTING
-# ------------------------
-# Aggiunge la cartella tests, dove c'è il CMakeLists dei test
+FetchContent_MakeAvailable(googletest)
+# ---------------------------------------------
+
+enable_testing()
+
+# --- 2. ORDINA DI ENTRARE NELLE CARTELLE ---
+add_subdirectory(src)
 add_subdirectory(tests)
-
 
 

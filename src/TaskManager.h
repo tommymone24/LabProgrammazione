@@ -12,15 +12,17 @@ using namespace std;
 class TaskManager {
 private:
     vector<Task> tasks;
-
-    // Funzione interna: prende una riga del file e la trasforma in una task
-    Task parseTask(const string& line);
+    int count = 0;
 
 public:
+    int getCount();
+    vector<Task> getTasks();
+    // Funzione che prende una riga del file e la trasforma in una task
+    Task parseTask(const string& line);
     void addTask(const Task& t);
     void removeTask(int index);
     void completeTask(int index);
-    void showTask() const;
+    void showTask();
     void filterByCategory(const string& category) const;
     void saveToFile(const string& fileName) const;
     void loadFromFile(const string& fileName);

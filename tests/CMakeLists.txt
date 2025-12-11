@@ -1,23 +1,15 @@
-# Abilita testing
-enable_testing()
+# Crea l'eseguibile per i test
+# NOTA: Devi includere i file .cpp che vuoi testare prendendoli dalla cartella src (../src/...)
+add_executable(TaskManagerTest
+        MainTest.cpp
+        TaskManagerTest.cpp
+        TaskTest.cpp
+        ../src/TaskManager.cpp
+        ../src/Task.h)
 
-# Trova Google Test tramite vcpkg
-find_package(GTest REQUIRED)
+# Collega Google Test a questo eseguibile
+target_link_libraries(UnitTests GTest::gtest_main)
 
-# Raccoglie tutti i file di test nella cartella corrente
-file(GLOB TEST_SOURCES *.cpp)
-
-# Crea l’eseguibile dei test
-add_executable(tests ${TEST_SOURCES})
-
-# Linka la libreria principale (task_lib) e GTest
-target_link_libraries(tests
-        PRIVATE
-        task_lib        # dalla cartella src
-        GTest::gtest
-        GTest::gtest_main
-)
-
-# Fa scoprire automaticamente i test a CTest
+# Registra i test
 include(GoogleTest)
-gtest_discover_tests(tests)
+gtest_discover_tests(UnitTests)
