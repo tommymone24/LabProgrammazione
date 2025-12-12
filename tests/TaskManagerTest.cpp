@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include "../src/TaskManager.h"
+#include <cstdio>
 
 TEST(TaskManagerTest, ParseCompletedTask) {
     TaskManager tm;
@@ -92,10 +93,50 @@ TEST(TaskManagertest, CompleteTask_NegativeIndex) {
 
 TEST(TaskManagerTest, CountTaskNotCompleted) {
     TaskManager tm;
-    ASSERT_EQ(tm.getCount(), 0);
+    ASSERT_EQ(tm.getCount(), 0);                // Contatore task non completate = 0
     tm.addTask(Task("Task 1", "Tasks", "11/12/2025", false));
     tm.addTask(Task("Task 2", "Tasks", "11/12/2025", false));
     ASSERT_EQ(tm.getCount(), 2);                // Contatore task non completate = 2
     tm.completeTask(0);
     ASSERT_EQ(tm.getCount(), 1);                // Il contatore viene decrementato di 1
+}
+
+TEST(TaskManagerTest, FilterTaskByCategory) {
+    TaskManager tm;
+    tm.addTask(Task("Task 1", "Lavoro", "11/12/2025", false));
+    tm.addTask(Task("Task 2", "Studio", "11/12/2025", false));
+    tm.filterByCategory("Studio");
+    vector<Task> storedTasks = tm.getTasks();
+    ASSERT_EQ(storedTasks.size(), 1);
+    EXPECT_EQ(storedTasks[0].description, "Task 1");
+    EXPECT_EQ(storedTasks[0].category, "Lavoro");
+}
+
+TEST(TaskManagertest, SaveAndLoad) {
+    TaskManager tm;
+    tm.addTask(Task("Task 1", "Tasks", "11/12/2025", false));
+    tm.addTask(Task("Task 2", "Tasks", "11/12/2025", true));
+
+    string fileName = "test_save_load.txt";
+    tm.saveToFile(fileName);                // Salvo su file
+
+    TaskManager loaded;
+    loaded.loadFromFile(fileName);          // Carico da file
+    vector<Task> tasks = loaded.getTasks();
+    ASSERT_EQ(tasks.size(), 2);
+
+    // Controllo la prima task
+    EXPECT_EQ(tasks[0].description, "Task 1");
+    EXPECT_EQ(tasks[0].category, "Tasks");
+    EXPECT_EQ(tasks[0].data, "11/12/2025");
+    EXPECT_FALSE(tasks[0].completed);                // Deve essere false
+
+    // Controllo la seconda task
+    EXPECT_EQ(tasks[1].description, "Task 2");
+    EXPECT_EQ(tasks[1].category, "Tasks");
+    EXPECT_EQ(tasks[1].data, "11/12/2025");
+    EXPECT_TRUE(tasks[1].completed);                // Deve essere
+
+    // Cancello il file creato dal test per non lasciare sporcizia
+    remove(fileName.c_str());       // Trasforma la stringa fileName in un formato capibile
 }

@@ -7,9 +7,9 @@ add_executable(TaskManagerTest
         ../src/TaskManager.cpp
         ../src/Task.h)
 
-# Collega Google Test a questo eseguibile
-target_link_libraries(UnitTests GTest::gtest_main)
+# Collego Google Test a questo eseguibile
+target_link_libraries(TaskManagerTest GTest::gtest_main)
 
-# Registra i test
+# Registro i test
 include(GoogleTest)
-gtest_discover_tests(UnitTests)
+gtest_discover_tests(TaskManagerTest)
