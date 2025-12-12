@@ -47,12 +47,23 @@ int main() {
             taskManager.completeTask(index);
         }else if (scelta == 4) {
             taskManager.showTask();
+            cout << endl;
         }else if (scelta == 5) {
             string cat;
-            cout << "Categoria da cui filtrare: ";
-            cin.ignore();
+            cout << "Categoria da cui filtrare: " ;
             getline(cin, cat);
-            taskManager.filterByCategory(cat);
+            vector<Task> risultati = taskManager.filterByCategory(cat);
+            if (risultati.empty()) {
+                cout << "Nessuna task trovata per la categoria '" << cat << "'." << endl;
+            } else {
+                // Se ci sono task, le stampo (usando lo stesso formato di showTask)
+                for (const auto& task : risultati) {
+                    cout << task.description << " | "
+                         << task.category << " | "
+                         << task.data << " | "
+                         << (task.completed ? "[COMPLETED]" : "[NOT COMPLETED]") << endl;
+                }
+            }
         }else if (scelta == 6) {
             taskManager.saveToFile("tasks.txt");
             cout << "Salvato!\n";

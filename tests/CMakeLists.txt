@@ -1,11 +1,8 @@
-# Crea l'eseguibile per i test
-# NOTA: Devi includere i file .cpp che vuoi testare prendendoli dalla cartella src (../src/...)
+# Creo l'eseguibile per i test
 add_executable(TaskManagerTest
-        MainTest.cpp
         TaskManagerTest.cpp
         TaskTest.cpp
-        ../src/TaskManager.cpp
-        ../src/Task.h)
+        ../src/TaskManager.cpp)
 
 # Collego Google Test a questo eseguibile
 target_link_libraries(TaskManagerTest GTest::gtest_main)

@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 4.0)
 project(LabProgrammazione)
 
 set(CMAKE_CXX_STANDARD 17)
+add_executable(LabProgrammazione main.cpp
+                src/TaskManager.cpp)
+
 
 # SCARICO GOOGLE TEST
 include(FetchContent)

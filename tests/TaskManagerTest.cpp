@@ -24,7 +24,7 @@ TEST(TaskManagerTest, ParseNotCompletedTask) {
     EXPECT_EQ(t.description, "Fare la spesa");
     EXPECT_EQ(t.category, "Casa");
     EXPECT_EQ(t.data, "11/12/2025");
-    EXPECT_TRUE(t.completed); // Deve essere false
+    EXPECT_FALSE(t.completed);          // Deve essere false
 }
 
 TEST(TaskManagerTest, AddTaskTest ) {
@@ -54,7 +54,7 @@ TEST(TaskManagerTest, RemoveTask) {
     tm.removeTask(1);
 
     vector<Task> tasks = tm.getTasks();
-    ASSERT_EQ(tasks.size(), 1);
+    ASSERT_EQ(tasks.size(), 2);
 
     EXPECT_EQ(tasks[0].description, "Task 1");
     EXPECT_EQ(tasks[1].description, "Task 3");              // La terza task deve slittare indietro di 1
@@ -87,7 +87,7 @@ TEST(TaskManagertest, CompleteTask_IndexOutOfBound) {
 TEST(TaskManagertest, CompleteTask_NegativeIndex) {
     TaskManager tm;
     tm.addTask(Task("Task 1", "Tasks", "11/12/2025", false));
-    tm.removeTask(-1);
+    tm.completeTask(-1);
     EXPECT_FALSE(tm.getTasks()[0].completed);               // La task originale non deve essere cambiata
 }
 
@@ -112,7 +112,7 @@ TEST(TaskManagerTest, FilterTaskByCategory) {
     EXPECT_EQ(storedTasks[0].category, "Lavoro");
 }
 
-TEST(TaskManagertest, SaveAndLoad) {
+TEST(TaskManagerTest, SaveAndLoad) {
     TaskManager tm;
     tm.addTask(Task("Task 1", "Tasks", "11/12/2025", false));
     tm.addTask(Task("Task 2", "Tasks", "11/12/2025", true));
@@ -138,5 +138,5 @@ TEST(TaskManagertest, SaveAndLoad) {
     EXPECT_TRUE(tasks[1].completed);                // Deve essere
 
     // Cancello il file creato dal test per non lasciare sporcizia
-    remove(fileName.c_str());       // Trasforma la stringa fileName in un formato capibile
+    remove(fileName.c_str());       // Trasforma la stringa fileName in un formato adeguato
 }

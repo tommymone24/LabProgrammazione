@@ -23,7 +23,7 @@ public:
     void removeTask(int index);
     void completeTask(int index);
     void showTask();
-    void filterByCategory(const string& category) const;
+    vector<Task> filterByCategory(const string& category) const;
     void saveToFile(const string& fileName) const;
     void loadFromFile(const string& fileName);
 };

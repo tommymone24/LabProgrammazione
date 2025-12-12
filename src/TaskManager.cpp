@@ -30,7 +30,6 @@ Task TaskManager::parseTask(const string& line) {
     return Task(description, category, date, completed);
 }
 
-
 void TaskManager::addTask(const Task& t) {
     tasks.push_back(t);
 }
@@ -54,9 +53,10 @@ void TaskManager::completeTask(int index) {
 
 void TaskManager::showTask(){
     if (tasks.empty()) {
-        cout << "No Tasks";
+        cout << "No Tasks" << endl;
         return;
     }
+    int count = 0;
     for (int i = 0; i < tasks.size(); i++) {
         cout << tasks[i].description << "|"
         << tasks[i].category << "|"
@@ -66,12 +66,19 @@ void TaskManager::showTask(){
             count++;
         }
     }
-    cout << "Numero di tasks ancora da completare: " << getCount() << endl;
+    cout << "Numero di tasks ancora da completare: " << count << endl;
 }
 
-void TaskManager::filterByCategory(const string& category) const {
+vector <Task> TaskManager::filterByCategory(const string& category) const {
     bool found = false;
-    for (int i = 0; i < tasks.size(); i++) {
+    std::vector<Task> filtered;
+    for (const auto& task : tasks) {
+        if (task.category == category) {
+            found = true;
+            filtered.push_back(task);
+        }
+    }
+    /*for (int i = 0; i < tasks.size(); i++) {
         if (tasks[i].category == category) {
             found = true;
             cout << tasks[i].description << "|"
@@ -79,10 +86,11 @@ void TaskManager::filterByCategory(const string& category) const {
             << tasks[i].data << "|"
             << (tasks[i].completed ? "[COMPLETED]" : "[NOT COMPLETED]");
         }
-    }
+    } */
     if (!found) {
         cout << "Task not found in category: " << category << endl;
     }
+    return filtered;
 }
 
 void TaskManager::saveToFile(const string& fileName) const{
@@ -100,7 +108,6 @@ void TaskManager::loadFromFile(const string& fileName) {
     tasks.clear();
     ifstream file(fileName);
     string line;
-
 
     while(getline(file, line)) {
         if (!line.empty()) {
