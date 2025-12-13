@@ -9,6 +9,12 @@
 #include <sstream>
 
 int TaskManager::getCount() {
+    int count = 0;
+    for (const auto& t : tasks) {
+        if (!t.completed) {
+            count++;
+        }
+    }
     return count;
 }
 vector<Task> TaskManager::getTasks() {
@@ -78,15 +84,6 @@ vector <Task> TaskManager::filterByCategory(const string& category) const {
             filtered.push_back(task);
         }
     }
-    /*for (int i = 0; i < tasks.size(); i++) {
-        if (tasks[i].category == category) {
-            found = true;
-            cout << tasks[i].description << "|"
-            << tasks[i].category << "|"
-            << tasks[i].data << "|"
-            << (tasks[i].completed ? "[COMPLETED]" : "[NOT COMPLETED]");
-        }
-    } */
     if (!found) {
         cout << "Task not found in category: " << category << endl;
     }

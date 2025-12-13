@@ -51,6 +51,7 @@ TEST(TaskManagerTest, RemoveTask) {
     Task t3("Task 3", "Tasks", "11/12/2025", false);
     tm.addTask(t1);
     tm.addTask(t2);
+    tm.addTask(t3);
     tm.removeTask(1);
 
     vector<Task> tasks = tm.getTasks();
@@ -105,11 +106,10 @@ TEST(TaskManagerTest, FilterTaskByCategory) {
     TaskManager tm;
     tm.addTask(Task("Task 1", "Lavoro", "11/12/2025", false));
     tm.addTask(Task("Task 2", "Studio", "11/12/2025", false));
-    tm.filterByCategory("Studio");
-    vector<Task> storedTasks = tm.getTasks();
+    vector<Task> storedTasks = tm.filterByCategory("Studio");
     ASSERT_EQ(storedTasks.size(), 1);
-    EXPECT_EQ(storedTasks[0].description, "Task 1");
-    EXPECT_EQ(storedTasks[0].category, "Lavoro");
+    EXPECT_EQ(storedTasks[0].description, "Task 2");
+    EXPECT_EQ(storedTasks[0].category, "Studio");
 }
 
 TEST(TaskManagerTest, SaveAndLoad) {
